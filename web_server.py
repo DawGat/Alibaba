@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import switch_board
+from globals import Global
 
 
 app = Flask(__name__)
@@ -9,7 +10,7 @@ app = Flask(__name__)
 def alibaba():
     if request.method == 'POST':
         if request.form.get('submit_button_1') == 'value1':
-            switch_board.trigger_switch(10)
+            switch_board.trigger_switch(Global.switches[0])
         else:
             return render_template("alibaba.html")
     elif request.method == 'GET':
