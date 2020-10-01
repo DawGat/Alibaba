@@ -34,6 +34,15 @@ def initiate_switches(switches_list):
             print('Switch %s initiated' % switch.name)
 
 
+# TODO: To be added on exit
+# Turning all switches off - to be used on application exit
+def turn_switches_off(switches_list):
+    for switch in switches_list:
+        if switch.enable:
+            if not Global.test_mode:
+                GPIO.output(switch.pin_nr, GPIO.LOW)
+            print('Switch %s turned off on application exit' % switch.name)
+            
 # Turning switch on for given number of seconds - gate opener
 def trigger_switch(switch, sec=1):
     if not Global.test_mode:
@@ -60,6 +69,6 @@ def turn_off_switch(switch):
 # Return true if switch is on
 def is_switch_on(switch):
     if not Global.test_mode:
-        return GPIO.output(switch.pin_nr)
+        return GPIO.input(switch.pin_nr)
     else:
         return True  # in test mode always return True

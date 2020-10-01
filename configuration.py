@@ -20,7 +20,7 @@ def read_switches_config():
     for switch_el in switches_el:
         name = switch_el.attrib['name']
         enable = switch_el.attrib['enable'].lower() == 'true'
-        pin_nr = switch_el.find('pin_nr').text
+        pin_nr = int(switch_el.find('pin_nr').text)
         switch = Switch(name, pin_nr, enable)
         switches.append(switch)
         if switch_el.find('switch_type') is not None:

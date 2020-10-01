@@ -25,11 +25,11 @@ def check_time_switchers():
 
 # Scheduling background tasks which will be executed with interval defined in add_job function
 scheduler = BackgroundScheduler(daemon=True)
-scheduler.add_job(check_time_switchers, 'interval', minutes=5)
+scheduler.add_job(check_time_switchers, 'interval', seconds=60)
 scheduler.start()
+
 # Closing background task at script closure
 atexit.register(lambda: scheduler.shutdown())
-
 
 if __name__ == '__main__':
     # Read configuration from config.xml file
