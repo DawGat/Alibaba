@@ -12,7 +12,6 @@ if not Global.test_mode:
 switch_types = {"impulse_switch": 1, "normal_switch": 2, "time_switch": 3, "sun_time_switch": 4, "not_defined": 5}
 
 
-# TODO Move switch related actions like turn on switch to class Switch
 class Switch:
     def __init__(self, name, pin_nr, enable=False, switch_type=switch_types["not_defined"], time_ranges=None):
         self.name = name
@@ -21,6 +20,50 @@ class Switch:
         self.switch_type = switch_type
         self.time_ranges = time_ranges
 
+    # Turning switch on for given number of seconds - gate opener
+    def trigger(self, sec=1):
+        if not Global.test_mode:
+            GPIO.output(self.pin_nr, GPIO.HIGH)
+            time.sleep(sec)
+            GPIO.output(self.pin_nr, GPIO.LOW)
+        print('Switch: %s triggered for %d seconds' % (self.name, sec))
+
+    # Turning switch on
+    def turn_on(self):
+        if not Global.test_mode:
+            GPIO.output(self.pin_nr, GPIO.HIGH)
+        print("Turning switch: %s on" % self.name)
+
+    # Turning switch off
+    def turn_off(self):
+        if not Global.test_mode:
+            GPIO.output(self.pin_nr, GPIO.LOW)
+        print("Turning switch: %s off" % self.name)
+
+    # Return TRUE if switch is on
+    def is_on(self):
+        if not Global.test_mode:
+            return GPIO.output(self.pin_nr)
+        else:
+            return False  # in test mode always return True
+
+    # Turn Switch on or off depending on time ranges
+    def check_time_scheduler(self):
+        if self.switch_type == switch_types["time_switch"]:
+            in_time_range = False
+            for time_range in self.time_ranges:
+                if time_range.is_in_time_range():
+                    in_time_range = True
+            if in_time_range and not self.is_on():
+                self.turn_on()
+            elif not in_time_range and self.is_on():
+                self.turn_off()
+
+    def set_time_ranges(self):
+        if self.switch_type == switch_types["time_switch"]:
+            for i, time_range in enumerate(self.time_ranges):
+                print("Configuration of %d time range of switch: %s" % (i+1, self.name))
+                time_range.set_time_range()
 
 # Defining GPIO pins and initial state
 def initiate_switches(switches_list):
@@ -32,34 +75,3 @@ def initiate_switches(switches_list):
                 GPIO.setup(switch.pin_nr, GPIO.OUT)
                 GPIO.output(switch.pin_nr, GPIO.LOW)
             print('Switch %s initiated' % switch.name)
-
-
-# Turning switch on for given number of seconds - gate opener
-def trigger_switch(switch, sec=1):
-    if not Global.test_mode:
-        GPIO.output(switch.pin_nr, GPIO.HIGH)
-        time.sleep(sec)
-        GPIO.output(switch.pin_nr, GPIO.LOW)
-    print('Switch: %s triggered for %d seconds' % (switch.name, sec))
-
-
-# Turning switch on
-def turn_on_switch(switch):
-    if not Global.test_mode:
-        GPIO.output(switch.pin_nr, GPIO.HIGH)
-    print("Turning switch: %s on" % switch.name)
-
-
-# Turning switch off
-def turn_off_switch(switch):
-    if not Global.test_mode:
-        GPIO.output(switch.pin_nr, GPIO.LOW)
-    print("Turning switch: %s off" % switch.name)
-
-
-# Return true if switch is on
-def is_switch_on(switch):
-    if not Global.test_mode:
-        return GPIO.output(switch.pin_nr)
-    else:
-        return True  # in test mode always return True

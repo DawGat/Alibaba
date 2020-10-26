@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ElementTree
 from switch_board import Switch
-import datetime
+from time_ranges import TimeRange
 
 # time_range_switch3 = [{"start": datetime.time(0, 0, 0), "end": datetime.time(0, 15, 0)},
 #                       {"start": datetime.time(14, 0, 0), "end": datetime.time(16, 0, 0)},
@@ -28,15 +28,12 @@ def read_switches_config():
         if switch_el.find('time_ranges') is not None:
             time_ranges_list = []
             for time_range in switch_el.findall('./time_ranges/time_range'):
-                start_str = time_range.find('start').text + ':00'
-                end_str = time_range.find('end').text + ':00'
-                start = datetime.time.fromisoformat(start_str)
-                end = datetime.time.fromisoformat(end_str)
-                time_range_dict = {
-                    'start': start,
-                    'end': end
-                }
-                time_ranges_list.append(time_range_dict)
+                start_hour = int(time_range.find('start_hour').text)
+                start_minute = int(time_range.find('start_minute').text)
+                end_hour = int(time_range.find('end_hour').text)
+                end_minute = int(time_range.find('end_minute').text)
+                cur_time_range = TimeRange(start_hour, start_minute, end_hour, end_minute)
+                time_ranges_list.append(cur_time_range)
             switch.time_ranges = time_ranges_list
     return switches
 

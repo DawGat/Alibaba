@@ -10,7 +10,7 @@ app = Flask(__name__)
 def alibaba():
     if request.method == 'POST':
         if request.form.get('submit_button_1') == 'value1':
-            switch_board.trigger_switch(Global.switches[0])
+            Global.switches[0].trigger()
         else:
             return render_template("alibaba.html")
     elif request.method == 'GET':
