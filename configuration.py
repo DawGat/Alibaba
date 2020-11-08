@@ -2,15 +2,7 @@ import xml.etree.ElementTree as ElementTree
 from switch_board import Switch
 from time_ranges import TimeRange
 
-# time_range_switch3 = [{"start": datetime.time(0, 0, 0), "end": datetime.time(0, 15, 0)},
-#                       {"start": datetime.time(14, 0, 0), "end": datetime.time(16, 0, 0)},
-#                       {"start": datetime.time(0, 30, 0), "end": datetime.time(1, 51, 0)}]
-# switches = [Switch("Garaż", 10, True, switch_types["impulse_switch"]),
-#             Switch("Lampy chodnik", 12, True, switch_types["time_switch"], time_range_switch3),
-#             Switch("Taras", 16, True, switch_types["normal_switch"]),
-#             Switch("Wolny", 18, False, switch_types["not_defined"])]
-
-
+# TODO Add validation for correctness of input data
 # This function is reading configuration xml file and creating switches list based on it
 def read_switches_config():
     switches = []
@@ -30,9 +22,18 @@ def read_switches_config():
             for time_range in switch_el.findall('./time_ranges/time_range'):
                 start_hour = int(time_range.find('start_hour').text)
                 start_minute = int(time_range.find('start_minute').text)
+                if time_range.find('start_sun_relation') is not None:
+                    start_sun_relation = time_range.find('start_sun_relation').text
+                else:
+                    start_sun_relation = None
                 end_hour = int(time_range.find('end_hour').text)
                 end_minute = int(time_range.find('end_minute').text)
-                cur_time_range = TimeRange(start_hour, start_minute, end_hour, end_minute)
+                if time_range.find('end_sun_relation') is not None:
+                    end_sun_relation = time_range.find('end_sun_relation').text
+                else:
+                    end_sun_relation = None
+                cur_time_range = TimeRange(start_hour, start_minute, end_hour, end_minute,
+                                           start_sun_relation, end_sun_relation)
                 time_ranges_list.append(cur_time_range)
             switch.time_ranges = time_ranges_list
     return switches

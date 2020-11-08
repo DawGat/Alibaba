@@ -7,9 +7,8 @@ if not Global.test_mode:
 # impulse_switch - trigger switch for short time
 # normal_switch - turn switch on/off from app button
 # time switch - switch will be turned off for defined time range during day
-# sun_time_range - switch will be turned off for defined time range during day - time range associated with
-#                  sunset\sunrise
-switch_types = {"impulse_switch": 1, "normal_switch": 2, "time_switch": 3, "sun_time_switch": 4, "not_defined": 5}
+
+switch_types = {"impulse_switch": 1, "normal_switch": 2, "time_switch": 3, "not_defined": 4}
 
 
 class Switch:
@@ -43,7 +42,7 @@ class Switch:
     # Return TRUE if switch is on
     def is_on(self):
         if not Global.test_mode:
-            return GPIO.output(self.pin_nr)
+            return GPIO.input(self.pin_nr)
         else:
             return False  # in test mode always return True
 
@@ -65,13 +64,24 @@ class Switch:
                 print("Configuration of %d time range of switch: %s" % (i+1, self.name))
                 time_range.set_time_range()
 
+
 # Defining GPIO pins and initial state
-def initiate_switches(switches_list):
+def initiate_switches():
     if not Global.test_mode:
         GPIO.setmode(GPIO.BOARD)
-    for switch in switches_list:
+    for switch in Global.switches:
         if switch.enable:
             if not Global.test_mode:
                 GPIO.setup(switch.pin_nr, GPIO.OUT)
                 GPIO.output(switch.pin_nr, GPIO.LOW)
             print('Switch %s initiated' % switch.name)
+
+
+# TODO: To be added on exit
+# Turning all switches off - to be used on application exit
+def turn_switches_off():
+    for switch in Global.switches:
+        if switch.enable:
+            if not Global.test_mode:
+                GPIO.output(switch.pin_nr, GPIO.LOW)
+            print('Switch %s turned off on application exit' % switch.name)

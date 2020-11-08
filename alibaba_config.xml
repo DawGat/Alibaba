@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+TODO Description need to be added
+-->
 <configuration>
     <test_mode>True</test_mode>
     <switches>
@@ -15,10 +18,12 @@
                     <start_minute>00</start_minute>
                     <end_hour>08</end_hour>
                     <end_minute>00</end_minute>
+                    <end_sun_relation>bsr</end_sun_relation>
                 </time_range>
                 <time_range>
-                    <start_hour>18</start_hour>
+                    <start_hour>02</start_hour>
                     <start_minute>00</start_minute>
+                    <start_sun_relation>bss</start_sun_relation>
                     <end_hour>23</end_hour>
                     <end_minute>00</end_minute>
                 </time_range>
