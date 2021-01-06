@@ -46,8 +46,5 @@ if __name__ == '__main__':
     set_time_ranges()
     run_time_switcher()
     # Starting web server
+    # TODO Check if can be opened on particular IP? 
     app.run('0.0.0.0', 5000, False)
-
-
-
-

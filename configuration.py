@@ -3,6 +3,7 @@ from switch_board import Switch
 from time_ranges import TimeRange
 
 # TODO Add validation for correctness of input data
+# TODO Add reading of test mode from config file (maybe has been added already?)
 # This function is reading configuration xml file and creating switches list based on it
 def read_switches_config():
     switches = []

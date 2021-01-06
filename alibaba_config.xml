@@ -3,7 +3,7 @@
 TODO Description need to be added
 -->
 <configuration>
-    <test_mode>True</test_mode>
+    <test_mode>False</test_mode>
     <switches>
         <switch name="Garage" enable="True">
             <pin_nr>10</pin_nr>
@@ -14,16 +14,16 @@ TODO Description need to be added
             <switch_type>3</switch_type>
             <time_ranges>
                 <time_range>
-                    <start_hour>05</start_hour>
+                    <start_hour>06</start_hour>
                     <start_minute>00</start_minute>
-                    <end_hour>08</end_hour>
-                    <end_minute>00</end_minute>
+                    <end_hour>00</end_hour>
+                    <end_minute>30</end_minute>
                     <end_sun_relation>bsr</end_sun_relation>
                 </time_range>
                 <time_range>
-                    <start_hour>02</start_hour>
-                    <start_minute>00</start_minute>
-                    <start_sun_relation>bss</start_sun_relation>
+                    <start_hour>00</start_hour>
+                    <start_minute>30</start_minute>
+                    <start_sun_relation>ass</start_sun_relation>
                     <end_hour>23</end_hour>
                     <end_minute>00</end_minute>
                 </time_range>
@@ -31,7 +31,23 @@ TODO Description need to be added
         </switch>
         <switch name="Outdoor sockets" enable="True">
             <pin_nr>16</pin_nr>
-            <switch_type>2</switch_type>
+            <switch_type>3</switch_type>
+            <time_ranges>
+                <time_range>
+                    <start_hour>06</start_hour>
+                    <start_minute>00</start_minute>
+                    <end_hour>00</end_hour>
+                    <end_minute>30</end_minute>
+                    <end_sun_relation>bsr</end_sun_relation>
+                </time_range>
+                <time_range>
+                    <start_hour>00</start_hour>
+                    <start_minute>30</start_minute>
+                    <start_sun_relation>ass</start_sun_relation>
+                    <end_hour>23</end_hour>
+                    <end_minute>00</end_minute>
+                </time_range>
+            </time_ranges>
         </switch>
         <switch name="Empty" enable="False">
             <pin_nr>18</pin_nr>
@@ -39,7 +55,7 @@ TODO Description need to be added
         </switch>
     </switches>
     <position>
-        <latitude>51.50</latitude>
-        <longitude>-0.12</longitude>
+        <latitude>49.98</latitude>
+        <longitude>18.94</longitude>
     </position>
 </configuration>

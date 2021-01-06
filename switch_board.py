@@ -20,7 +20,7 @@ class Switch:
         self.time_ranges = time_ranges
 
     # Turning switch on for given number of seconds - gate opener
-    def trigger(self, sec=1):
+    def trigger(self, sec=0.5):
         if not Global.test_mode:
             GPIO.output(self.pin_nr, GPIO.HIGH)
             time.sleep(sec)
