@@ -1,5 +1,6 @@
 from globals import Global
 import time
+
 if not Global.test_mode:
     import RPi.GPIO as GPIO
 
@@ -61,7 +62,7 @@ class Switch:
     def set_time_ranges(self):
         if self.switch_type == switch_types["time_switch"]:
             for i, time_range in enumerate(self.time_ranges):
-                print("Configuration of %d time range of switch: %s" % (i+1, self.name))
+                print("Configuration of %d time range of switch: %s" % (i + 1, self.name))
                 time_range.set_time_range()
 
 

@@ -1,0 +1,12 @@
+<!doctype html>
+{% extends "base.html" %}
+
+{% block content %}
+	<form method="post" action="/garage_opener/">
+		<input type="submit" name="submit_open_gate" value="Open gate"
+			style=	"width: 50%;
+				height: 300px;
+				margin-left: 25%;"
+		>
+	</form>  
+{% endblock %}

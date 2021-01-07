@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+		{% if title %}
+        <title>Alibaba - {{ title }}</title>
+		{% else %}
+		<title>Alibaba - SmartHome</title>
+		{% endif %}
+    </head>
+    <body>
+        <div>
+            Menu:
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('garage') }}">Garage Door opener</a>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

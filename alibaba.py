@@ -1,9 +1,9 @@
 import switch_board
 from time_ranges import set_sun_day
-from web_server import app
+from webPage.web_server import app
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
-import configuration
+import readConfigFile
 from globals import Global
 
 
@@ -32,11 +32,10 @@ scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 atexit.register(switch_board.turn_switches_off)
 
-
 if __name__ == '__main__':
     # Read configuration from config.xml file
-    Global.switches = configuration.read_switches_config()
-    Global.position = configuration.read_position_config()
+    Global.switches = readConfigFile.read_switches_config()
+    Global.position = readConfigFile.read_position_config()
     # Initiate GPIO switches
     switch_board.initiate_switches()
 

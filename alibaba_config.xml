@@ -3,7 +3,7 @@
 TODO Description need to be added
 -->
 <configuration>
-    <test_mode>False</test_mode>
+    <test_mode>True</test_mode>
     <switches>
         <switch name="Garage" enable="True">
             <pin_nr>10</pin_nr>
