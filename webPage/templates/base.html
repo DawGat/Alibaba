@@ -9,9 +9,14 @@
     </head>
     <body>
         <div>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('signin') }}">Login</a>
+            {% else %}
             Menu:
-            <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('garage') }}">Garage Door opener</a>
+            <a href="{{ url_for('users_page') }}">Users</a>
+            <p>Logged as: <b>{{ current_user.username }} <a href="{{ url_for('logout') }}">Logout</a></b></p>
+            {% endif %}
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}

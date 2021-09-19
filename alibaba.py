@@ -1,11 +1,11 @@
 import switch_board
 from time_ranges import set_sun_day
-from webPage.web_server import app
+from webPage.__init__ import app
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 import readConfigFile
 from globals import Global
-
+from flask import Flask
 
 # Defining time ranges for Switches with time scheduler
 def set_time_ranges():
